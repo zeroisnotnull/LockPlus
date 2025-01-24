@@ -1,0 +1,283 @@
+/* Reset and base styles - ONLY for extension popup */
+/* Lock Screen Styles */
+#browser-lock-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #4169e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2147483647;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto !important;
+  transform: scale(1) !important;
+  zoom: 100% !important;
+}
+
+#browser-lock-screen * {
+  pointer-events: auto !important;
+  transform: scale(1) !important;
+  zoom: 100% !important;
+}
+
+/* Popup specific styles - scoped to popup only */
+.popup-container {
+  width: 480px; /* Increased width */
+  min-height: 100px;
+  background: linear-gradient(145deg, #1a237e, #0d47a1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+}
+
+.lock-icon {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.popup-container h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-align: center;
+}
+
+.pin-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pin-input {
+  
+  padding: 1rem; /* Increased padding */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 1.25rem; /* Increased font size */
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.2s;
+}
+
+.pin-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pin-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.button {
+  width: 100%;
+  padding: 1rem; /* Increased padding */
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.25rem; /* Increased font size */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.lock-button {
+  background-color: #dc2626;
+}
+
+.lock-button:hover {
+  background-color: #b91c1c;
+}
+
+/* Notification styles - scoped to popup */
+.notification {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.notification.success {
+  background: var(--success-color);
+  color: white;
+}
+
+.notification.error {
+  background: var(--error-color);
+  color: white;
+}
+
+.notification-message {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: currentColor;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0;
+  opacity: 0.7;
+}
+
+.notification-close:hover {
+  opacity: 1;
+}
+
+/* Lock Screen Styles - these are injected only when needed and scoped to lock screen */
+#browser-lock-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(145deg, #1a237e, #0d47a1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2147483647;
+  user-select: none;
+}
+
+#browser-lock-screen * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#browser-lock-screen .lock-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  padding: 2.5rem;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#browser-lock-screen .lock-title {
+  color: white;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#browser-lock-screen .pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+}
+
+#browser-lock-screen .pin-digit {
+  width: 5rem; /* Increased size */
+  height: 5rem; /* Increased size */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem; /* Increased font size */
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#browser-lock-screen .pin-digit:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#browser-lock-screen .pin-digit:active {
+  transform: scale(0.95);
+}
+
+#browser-lock-screen .pin-display {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+#browser-lock-screen .pin-dot {
+  width: 20px; /* Increased size */
+  height: 20px; /* Increased size */
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.2s;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#browser-lock-screen .pin-dot.filled {
+  background: white;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+#browser-lock-screen .pin-error {
+  color: #ef4444;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  animation: fadeIn 0.3s ease-out;
+}

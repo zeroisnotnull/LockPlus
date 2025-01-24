@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЛоккПлюс</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    body {
+      background-color: #f8fafc;
+    }
+    
+    .popup-container {
+      width: 480px; /* Increased width */
+      padding: 24px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .header h1 {
+      color: #4361ee;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .pin-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .pin-input {
+      width: 300px;
+      padding: 16px 20px; /* Increased padding */
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px; /* Increased font size */
+      color: #1e293b;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+    }
+    
+    .pin-input:focus {
+      outline: none;
+      border-color: #4361ee;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    .pin-input::placeholder {
+      color: #94a3b8;
+    }
+    
+    .button {
+      width: 100%;
+      padding: 16px; /* Increased padding */
+      border: none;
+      border-radius: 12px;
+      font-size: 16px; /* Increased font size */
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .primary-button {
+      background-color: #4361ee;
+      color: white;
+    }
+    
+    .primary-button:hover {
+      background-color: #3b55d9;
+      transform: translateY(-1px);
+    }
+    
+    .lock-button {
+      background-color: #fbbf24;
+      color: white;
+    }
+    
+    .lock-button:hover {
+      background-color: #f59e0b;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100%);
+      background: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    
+    .notification.success {
+      background: #10b981;
+      color: white;
+    }
+    
+    .notification.error {
+      background: #ef4444;
+      color: white;
+    }
+    
+    .notification-message {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .notification-close {
+      background: none;
+      border: none;
+      color: currentColor;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 0;
+      opacity: 0.7;
+    }
+    
+    .notification-close:hover {
+      opacity: 1;
+    }
+    
+    .restricted-page-notification {
+      background: #fbbf24;
+      color: white;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f8f9ff;
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #4169e1;
+      border-radius: 4px;
+      opacity: 0.8;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3158d3;
+    }
+    
+    .stats {
+      margin-bottom: 24px;
+    }
+    
+    .rating-section {
+      width: 450px;
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 24px;
+    }
+    
+    .rating-text {
+      color: #5f6368;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .star {
+      color: #dadce0;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    
+    .star:hover,
+    .star:hover ~ .star {
+      color: #fbbc04;
+    }
+    
+    .stars:hover .star {
+      color: #fbbc04;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #5f6368;
+      font-size: 13px;
+      border-top: 1px solid #e8eaed;
+    }
+    
+    .footer a {
+      color: #1a73e8;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .footer a:hover {
+      color: #1557b0;
+      text-decoration: underline;
+    }
+    
+    .headerx {
+      width: 450px;
+      text-align: center;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #1a73e8, #1557b0);
+      padding: 20px;
+      border-radius: 12px;
+      color: white;
+      box-shadow: 0 4px 6px rgba(26, 115, 232, 0.1);
+    }
+    
+    .headerx h1 {
+      font-size: 28px;
+      margin: 0 0 8px 0;
+      font-weight: 600;
+    }
+    
+    .headerx p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+    
+    .headerx h1 {
+      font-size: 32px;
+      color: #ffffff;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    </style>
+</head>
+<body id="browser-lock-settings">
+  
+  <div class="popup-container">
+    <div class="headerx">
+      <h1>ЛоккПлюс</h1>
+      <p>Заблокируйте браузер с помощью PIN-кода</p>
+    </div>
+    <div class="notification" id="notification">
+      <span class="notification-message"></span>
+      <button class="notification-close">&times;</button>
+    </div>
+   
+    <div class="pin-section">
+      <input type="password" id="currentPin" placeholder="Текущий PIN" class="pin-input" maxlength="4">
+      <input type="password" id="newPin" placeholder="Новый PIN" class="pin-input" maxlength="4">
+      <input type="password" id="confirmPin" placeholder="Подтвердите PIN" class="pin-input" maxlength="4">
+      <button id="savePin" class="button primary-button">Сохранить PIN</button>
+      <button id="lockNow" class="button lock-button" style="display: none;">Заблокировать браузер</button>
+    </div>
+
+    <div class="rating-section">
+      <div class="rating-text">Оцените нас в Chrome Web Store</div>
+      <div class="stars">
+        <span class="star" data-rating="1">★</span>
+        <span class="star" data-rating="2">★</span>
+        <span class="star" data-rating="3">★</span>
+        <span class="star" data-rating="4">★</span>
+        <span class="star" data-rating="5">★</span>
+      </div>
+    </div>
+    <div class="footer">
+      Все права защищены, 2025 - <a href="https://browserx.ru/?ref=LockPlus" target="_blank">Browserx.ru</a>
+    </div>
+
+   
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

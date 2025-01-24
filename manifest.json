@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "ЛоккПлюс",
+  "version": "1.0.0",
+  "description": "Защитите свой браузер с помощью простого и надежного PIN-кода — создано Browserx.ru",
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["styles.css"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "96": "icon96.png"
+    }
+  },
+  "icons": {
+    "96": "icon96.png"
+  }
+}
